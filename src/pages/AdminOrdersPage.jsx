@@ -31,15 +31,24 @@ const AdminOrdersPage = () => {
   }, [fetchOrders]);
 
   const updateStatus = async (orderId, newStatus) => {
+    // 1. Instantly update the UI (Optimistic Update)
+    setOrders(prevOrders => 
+      prevOrders.map(order => 
+        order.order_id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
+    
     try {
+      // 2. Send the request to the server in the background
       await axios.post(`${API}/admin/order/update-status`, {
         order_id: orderId,
         status: newStatus
       });
       toast.success(`Order marked as ${newStatus}`);
-      fetchOrders(); // Refresh immediately
     } catch (error) {
       toast.error("Failed to update status");
+      // 3. If it fails, refresh from the server to fix the UI
+      fetchOrders(); 
     }
   };
 
