@@ -90,7 +90,7 @@ const MenuPage = ({ user, logout, cartCount, setCartCount }) => {
                 <h1 className="text-xl font-extrabold tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
                   Smart Canteen
                 </h1>
-                <p className="text-sm text-[#666666]" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                <p className="text-sm text-[#666666] hidden sm:block" style={{ fontFamily: 'DM Sans, sans-serif' }}>
                   Welcome, {user.name}
                 </p>
               </div>
@@ -99,7 +99,7 @@ const MenuPage = ({ user, logout, cartCount, setCartCount }) => {
               <Button
                 data-testid="cart-btn"
                 onClick={() => navigate("/cart")}
-                className="bg-[#88C140] text-white hover:bg-[#88C140]/90 rounded-full px-6 py-2 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all active:scale-95 relative"
+                className="bg-[#88C140] text-white hover:bg-[#88C140]/90 rounded-full px-4 sm:px-6 py-2 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all active:scale-95 relative"
                 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 600 }}
               >
                 <ShoppingCart size={18} />
@@ -172,7 +172,7 @@ const MenuPage = ({ user, logout, cartCount, setCartCount }) => {
 
         {/* ✅ Tabs now work with your menuData */}
         <Tabs defaultValue="all" className="w-full mb-8" onValueChange={setActiveCategory}>
-          <TabsList className="inline-flex bg-white rounded-full p-2 shadow-md border border-[#E5E5E5]/50 mx-auto" data-testid="category-tabs">
+          <TabsList className="flex overflow-x-auto hide-scrollbar whitespace-nowrap bg-white rounded-full p-2 shadow-md border border-[#E5E5E5]/50 mx-auto w-fit max-w-full" data-testid="category-tabs">
             <TabsTrigger
               value="all"
               className="rounded-full px-8 py-2 data-[state=active]:bg-gradient-to-br data-[state=active]:from-[#FF6B35] data-[state=active]:to-[#88C140] data-[state=active]:text-white"
