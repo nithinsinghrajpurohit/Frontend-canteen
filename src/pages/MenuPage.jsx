@@ -113,6 +113,16 @@ const MenuPage = ({ user, logout, cartCount, setCartCount }) => {
                 )}
               </Button>
               <Button
+                data-testid="orders-btn"
+                onClick={() => navigate("/orders")}
+                variant="ghost"
+                className="hover:bg-[#F2F2F2] rounded-full"
+                style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 600 }}
+                title="My Orders"
+              >
+                <UtensilsCrossed size={18} />
+              </Button>
+              <Button
                 data-testid="profile-btn"
                 onClick={() => navigate("/profile")}
                 variant="ghost"

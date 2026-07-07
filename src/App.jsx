@@ -7,9 +7,11 @@ import MenuPage from "./pages/MenuPage";
 import CartPage from "./pages/CartPage";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import SignupPage from "./pages/SignupPage";
+import OrdersPage from "./pages/OrdersPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import ProfilePage from "./pages/ProfilePage";
 import ChatWidget from "./components/ChatWidget";
+import OrderNotificationManager from "./components/OrderNotificationManager";
 
 import "./index.css";
 
@@ -56,12 +58,14 @@ function App() {
         <Route path="/menu" element={<MenuPage user={user} logout={handleLogout} cartCount={cartCount} setCartCount={setCartCount} />} />
         <Route path="/cart" element={<CartPage user={user} logout={handleLogout} setCartCount={setCartCount} />} />
         <Route path="/order-confirmation/:orderId" element={<OrderConfirmation user={user} logout={handleLogout} />} />
+        <Route path="/orders" element={<OrdersPage user={user} logout={handleLogout} />} />
         <Route path="/admin/orders" element={<AdminOrdersPage />} />
         <Route path="/profile" element={<ProfilePage user={user} logout={handleLogout} />} />
 
         {/* Add other routes */}
       </Routes>
       <ChatWidget />
+      <OrderNotificationManager user={user} />
     </Router>
     </GoogleOAuthProvider>
   );
