@@ -17,7 +17,12 @@ const AdminOrdersPage = () => {
       const response = await axios.get(`${API}/admin/orders`);
       setOrders(response.data);
     } catch (error) {
-      console.error("Failed to fetch orders");
+      const status = error.response?.status;
+      if (status === 401 || status === 403) {
+        toast.error("Access denied. Please log in with a faculty account to view orders.");
+      } else {
+        console.error("Failed to fetch orders");
+      }
     } finally {
       setLoading(false);
     }

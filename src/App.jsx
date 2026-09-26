@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from "axios";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import LoginPage from "./pages/LoginPage"; // adjust path if needed
 import LandingPage from "./pages/LandingPage";
@@ -30,21 +31,35 @@ function App() {
     console.error("🚨 CRITICAL CONFIG ERROR: You are using the default Google Client ID. This ID does not authorize your Vercel domain. You MUST create your own Client ID in Google Cloud Console and set VITE_GOOGLE_CLIENT_ID in Vercel.");
   }
 
+  // Attach (or clear) the JWT so protected endpoints like /admin/orders accept our requests
+  const applyAuthToken = (userData) => {
+    const token = userData?.token;
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+      delete axios.defaults.headers.common["Authorization"];
+    }
+  };
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const userData = JSON.parse(storedUser);
+      setUser(userData);
+      applyAuthToken(userData);
     }
   }, []);
 
   const handleLogin = (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
+    applyAuthToken(userData);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
+    applyAuthToken(null);
     window.location.href = "/login";
   };
 
